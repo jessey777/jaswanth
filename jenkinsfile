@@ -1,28 +1,26 @@
 pipeline {
-   agent any 
-     stages{
-	   stage("checkout the code from git-hub") {
-	      steps{
-		    git 'https://github.com/jessey777/game-of-life.git'
-			}
-			}
-		stage ("build code with maven") {
-		   steps{
-		     sh 'mvn clean package' 
-			 }
-			 }
-	    stage("archive artifact") {
-          steps{
-            archive"'gameoflife-web/target/*.war"
-       }
-       }			
-         stage("publish junit test results") {
-		   steps{
-             junit 'gameoflife-web/target/surefire-reports/*.xml'
-         }
-          }    
-
-		  }
+     agent none
+      
+      stages{ 
+  
+           stage ("stage10") { 
+		     agent {
+			   label "flipkart"
+			   }
+		     steps{
+			 echo "this is stage1"
+		   }
+		   }
+           stage ("stage2") {
+		      agent{
+			  label "uber"
+			  }
+			  steps{
+			  echo "this is stage2"
+		   }
+		   }
+  
+  }
+  
 
 }
-
